@@ -53,3 +53,43 @@ bool AccountManager::changePassword(const string &uname, const string &newPasswo
     cout << "Đổi mật khẩu thành công!\n";
     return true;
 }
+
+void AccountManager::saveToFile(const string &filename) const {
+    ofstream ofs(filename);
+    if (!ofs) {
+        cout << "Không thể mở file để lưu dữ liệu!\n";
+        return;
+    }
+    for (const auto &entry : accounts) {
+        ofs << entry.second.username << " " 
+            << entry.second.passwordHashed << " " 
+            << entry.second.wallet.points << "\n";
+    }
+    ofs.close();
+    cout << "Dữ liệu đã được lưu vào file: " << filename << "\n";
+}
+
+void AccountManager::loadFromFile(const string &filename) {
+    ifstream ifs(filename);
+    if (!ifs) {
+        cout << "File dữ liệu không tồn tại. Khởi tạo hệ thống mới.\n";
+        return;
+    }
+    string line;
+    while (getline(ifs, line)) {
+        if (line.empty())
+            continue;
+        istringstream iss(line);
+        string uname, pwdHashed;
+        int pts;
+        if (!(iss >> uname >> pwdHashed >> pts))
+            continue;
+        Account acc;
+        acc.username = uname;
+        acc.passwordHashed = pwdHashed;
+        acc.wallet.points = pts;
+        accounts[uname] = acc;
+    }
+    ifs.close();
+    cout << "Dữ liệu đã được tải từ file: " << filename << "\n";
+}
