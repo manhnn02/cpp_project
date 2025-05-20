@@ -127,3 +127,32 @@ bool AccountManager::removeAccount(const string &uname) {
     cout << "Tài khoản " << uname << " đã được xóa.\n";
     return true;
 }
+
+bool AccountManager::transferPoints(const string &sender, const string &recipient, int amount) {
+    if (accounts.find(sender) == accounts.end()) {
+        cout << "Tài khoản gửi không tồn tại!\n";
+        return false;
+    }
+    if (accounts.find(recipient) == accounts.end()) {
+        cout << "Tài khoản nhận không tồn tại!\n";
+        return false;
+    }
+    if (sender == recipient) {
+        cout << "Không thể chuyển điểm cho chính bạn!\n";
+        return false;
+    }
+    if (amount <= 0) {
+        cout << "Số điểm chuyển phải lớn hơn 0!\n";
+        return false;
+    }
+    if (accounts[sender].wallet.points < amount) {
+        cout << "Tài khoản gửi không có đủ điểm!\n";
+        return false;
+    }
+    
+    accounts[sender].wallet.points -= amount;
+    accounts[recipient].wallet.points += amount;
+    cout << "Chuyển " << amount << " điểm từ " << sender 
+         << " sang " << recipient << " thành công.\n";
+    return true;
+}
