@@ -93,3 +93,37 @@ void AccountManager::loadFromFile(const string &filename) {
     ifs.close();
     cout << "Dữ liệu đã được tải từ file: " << filename << "\n";
 }
+
+void AccountManager::displayAccount(const string &uname) const {
+    auto it = accounts.find(uname);
+    if (it != accounts.end()) {
+        cout << "Thông tin tài khoản:\n";
+        cout << "Tên đăng nhập: " << it->second.username << "\n";
+        cout << "Số điểm: " << it->second.wallet.points << "\n";
+    } else {
+        cout << "Không tìm thấy tài khoản!\n";
+    }
+}
+
+void AccountManager::displayAllAccounts() const {
+    cout << "\nDanh sách tài khoản:\n";
+    if (accounts.empty()) {
+        cout << "Hiện không có tài khoản nào.\n";
+        return;
+    }
+    for (const auto &entry : accounts) {
+        cout << "Tên: " << entry.first 
+             << " | Số điểm: " << entry.second.wallet.points << "\n";
+    }
+}
+
+bool AccountManager::removeAccount(const string &uname) {
+    auto it = accounts.find(uname);
+    if (it == accounts.end()) {
+        cout << "Tài khoản " << uname << " không tồn tại!\n";
+        return false;
+    }
+    accounts.erase(it);
+    cout << "Tài khoản " << uname << " đã được xóa.\n";
+    return true;
+}
