@@ -2,6 +2,10 @@
 
 Hệ thống quản lý tài khoản đơn giản được viết bằng C++, cho phép người dùng đăng ký tài khoản, đăng nhập, quản lý điểm số và chuyển điểm giữa các người dùng trong hệ thống.
 
+## Thành viên tham gia dự án
+- Nguyễn Ngọc Mạnh (K24DTCN211)
+- Nguyễn Đình Sang (K24DTCN224)
+
 ## Tính Năng
 
 ### Người Dùng Thông Thường
