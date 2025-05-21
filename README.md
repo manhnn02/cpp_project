@@ -39,7 +39,8 @@ Lớp này quản lý tất cả tài khoản trong hệ thống:
 ### Biên Dịch
 
 ```bash
-g++ -o account_system account_system.cpp -std=c++11
+g++ -o account_system src/main.cpp src/account_manager.cpp
+clang++ -o account_system src/main.cpp src/account_manager.cpp
 ```
 
 ### Chạy Chương Trình
