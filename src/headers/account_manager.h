@@ -8,6 +8,8 @@
 class AccountManager {
 private:
     std::unordered_map<std::string, Account> accounts; // key là username
+    // Hàm ghi log giao dịch chuyển điểm
+    void logTransaction(const std::string &sender, const std::string &recipient, int amount);
 public:
     // Các hàm nghiệp vụ dành cho người dùng
     bool registerAccount(const std::string &uname, const std::string &password);

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <limits>
+#include <ctime>
 using namespace std;
 
 bool AccountManager::registerAccount(const string &uname, const string &password) {
@@ -150,9 +151,28 @@ bool AccountManager::transferPoints(const string &sender, const string &recipien
         return false;
     }
     
+    // Thực hiện giao dịch chuyển điểm
     accounts[sender].wallet.points -= amount;
     accounts[recipient].wallet.points += amount;
     cout << "Chuyển " << amount << " điểm từ " << sender 
          << " sang " << recipient << " thành công.\n";
+    
+    // Ghi log giao dịch chuyển điểm
+    logTransaction(sender, recipient, amount);
     return true;
+}
+
+void AccountManager::logTransaction(const string &sender, const string &recipient, int amount) {
+    ofstream ofs("./transaction_logs/trannsactions.log", ios::app);  // mở file ở chế độ append
+    if (!ofs) {
+        cerr << "Không mở được file log!" << endl;
+        return;
+    }
+    // Lấy thời gian hiện tại
+    time_t now = time(0);
+    char timeStr[100];
+    strftime(timeStr, sizeof(timeStr), "%Y-%m-%d %H:%M:%S", localtime(&now));
+    ofs << timeStr << " - Chuyển " << amount << " điểm từ " << sender 
+        << " sang " << recipient << "\n";
+    ofs.close();
 }
