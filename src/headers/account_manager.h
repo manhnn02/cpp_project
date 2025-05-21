@@ -1,7 +1,7 @@
 #ifndef ACCOUNT_MANAGER_H
 #define ACCOUNT_MANAGER_H
 
-#include "Account.h"
+#include "account.h"
 #include <unordered_map>
 #include <string>
 
