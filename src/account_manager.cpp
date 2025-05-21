@@ -163,7 +163,7 @@ bool AccountManager::transferPoints(const string &sender, const string &recipien
 }
 
 void AccountManager::logTransaction(const string &sender, const string &recipient, int amount) {
-    ofstream ofs("./transaction_logs/trannsactions.log", ios::app);  // mở file ở chế độ append
+    ofstream ofs("./transaction_logs/transactions.log", ios::app);  // mở file ở chế độ append
     if (!ofs) {
         cerr << "Không mở được file log!" << endl;
         return;
